@@ -1,6 +1,14 @@
-import { Schema, model, Document } from "mongoose";
+import { Schema, model, Document, Types } from "mongoose";
 
 export interface IPhone {type: string; number: string}
+
+export interface IAddress {
+  area?:string;
+  street?: string;
+  number?: string;
+  po?: string;
+  municipality?: string;
+}
 
 export interface IUser extends Document {
   username: string;
@@ -15,17 +23,18 @@ export interface IUser extends Document {
     po?: string;
     municipality?: string;
   },
-  phone?: IPhone[]
+  phone?: IPhone[],
+  roles: Types.ObjectId[]
 }
 
-const PhoneSchema = new Schema({
+const PhoneSchema = new Schema<IPhone>({
     type: String, 
     number: String
   },
   // {_id:false} inserts _id or not
 )
 
-const AddressSchema = new Schema({
+const AddressSchema = new Schema<IAddress>({
   area: String,
   street: String,
   number: String,
@@ -33,7 +42,7 @@ const AddressSchema = new Schema({
   municipality: String
 })
 
-const UserSchema = new Schema({
+const UserSchema = new Schema<IUser>({
   username: { 
     type: String, 
     required: [true, "Username is required field"], 
@@ -55,7 +64,8 @@ const UserSchema = new Schema({
   //   municipality: String
   // },
   address: AddressSchema,
-  phone: { type: [PhoneSchema], null: true }
+  phone: { type: [PhoneSchema], null: true },
+  roles: [{type: Schema.Types.ObjectId, ref:"Role", required: true}]
 },{
   collection: "users",
   timestamps: true,
