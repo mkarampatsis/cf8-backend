@@ -4,10 +4,11 @@ import { validate } from '../middlewares/validate.middleware';
 import { validateObjectId } from "../middlewares/validateObjectId.middleware";
 import { createUserSchema, updateUserSchema } from "../validators/user.validator";
 import { authenticate } from "../middlewares/auth.middleware";
+import { hasAdminRole } from "../middlewares/user.middleware";
 
 const router = Router();
 
-router.get("/", authenticate, userCtrl.list);
+router.get("/", authenticate, hasAdminRole, userCtrl.list);
 router.get('/:id', validateObjectId('id'), userCtrl.getOne);
 router.post("/", authenticate, validate(createUserSchema), userCtrl.create);
 router.put('/:id', authenticate, validate(updateUserSchema), validateObjectId('id'), userCtrl.update);
