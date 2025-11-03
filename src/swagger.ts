@@ -13,14 +13,14 @@ const options: swaggerJSDoc.Options = {
       version: "1.0.0",
       description: "Api for Users written in typescript"
     },
-    server: [
+    servers: [
       {
         url: "http://localhost:3000/api",
         description: "Local Server"
       }
     ],
     components: {
-      securitySchemas: {
+      securitySchemes: {
         bearerAuth: {
           type: "http",
           scheme: "bearer",
