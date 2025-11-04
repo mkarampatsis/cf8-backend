@@ -1,5 +1,5 @@
 /** @type {import('jest').Config} */
-export default {
+module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   roots: ['<rootDir>/src/tests'],
@@ -9,6 +9,6 @@ export default {
   setupFilesAfterEnv: ['<rootDir>/src/tests/testSetup.ts'],
   transform: { '^.+\\.tsx?$': 'ts-jest' },
   coveragePathIgnorePatterns: ['/node_modules/'],
-  runInBand: true,
+  // runInBand: true,
   collectCoverage: true,
 };

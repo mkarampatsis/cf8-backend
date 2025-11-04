@@ -43,5 +43,5 @@
   },
   "include": [
     "src/**/*"
-  ]
+, "jest.config.cjs"   ]
 }
