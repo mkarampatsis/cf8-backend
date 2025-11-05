@@ -12,7 +12,7 @@ const JWT_SECRET = process.env.JWT_SECRET || '';
 const server = new TestServer();
 server.app.use('/users', userRoutes);
 
-describe('User API Tests', () => {
+describe('User API Tests GET Requests', () => {
 
   let token:string;
 
@@ -49,7 +49,21 @@ describe('User API Tests', () => {
     
     expect(res.status).toBe(201);
     expect(res.body.username).toBe('newuser');
-  })
+  });
+
+  test('POST /users -> creates new user with wrong password', async()=>{
+    const res = await server.request.post('/users')
+      .set('Authorization', `Bearer ${token}`)
+      .send({username: "newuser", password:"12"});
+    
+    expect(res.status).toBe(400);
+  });
+
+  test('POST /users -> creates new user with wrong username', async()=>{
+    const res = await server.request.post('/users')
+      .set('Authorization', `Bearer ${token}`)
+      .send({username: "ne", password:"1200000"});
+    
+    expect(res.status).toBe(400);
+  });
 })
-
-

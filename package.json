@@ -8,7 +8,9 @@
   "main": "server.ts",
   "scripts": {
     "test": "jest --runInBand --detectOpenHandles",
-    "dev": "ts-node-dev --respawn src/server.ts"
+    "dev": "ts-node-dev --respawn src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
